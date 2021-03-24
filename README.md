@@ -91,6 +91,7 @@ The contacts.Contact instance, returned by create_contact() includes the followi
 - Validate post data against required fields
 - Implement avatar upload
 - Implement Rate limits
+- Make it a real Python Package with .toml, etc.
 
 
 ## For developers only
