@@ -5,6 +5,94 @@ This is a simple API client for Freshdesk, written in Python.
 The client implements **v2** of the API.
 
 
+## Setup
+
+The Freshdesk API Client works with token authentication.
+To use methods, requiring authentication, provide a token as environment variable `FRESHDESK_TOKEN`
+
+
+## General Usage
+
+The Freshdesk API Client defines model classes for each data type, which cover the response json.
+
+The model classes don't allow you to assign attributes, not defined in the model, so they try to
+protect you from typos.
+
+The attributes follow 1:1 the json attribute names, provided by Freshdesk.
+
+
+## contacts module
+
+
+### general usage
+
+`from freshdesk_api_client import contacts`
+
+
+### create_contact()
+
+`contacts.create_contact(subdomain: str, contact: dict) -> Contact`
+
+[Freshdesk documentation](https://developers.freshdesk.com/api/#create_contact)
+
+The method does require authentication.
+
+It raises FreshdeskClientError or subclass of it on anything but 201 OK.
+
+It returns contacts.Contact instance.
+
+NB!: `'preferred_source'`, `'facebook_id'`, `'csat_rating'` are **UNDOCUMENTED** attributes,
+returned by Freshdesk. The Contact model contains those attributes, but they shouldn't be provided
+to create_contact's contact dictionary
+
+The contact dictionary may contain everything from contacts.Contact, except:
+- active
+- deleted
+- id
+- created_at
+- updated_at,
+- preferred_source
+- facebook_id
+- csat_rating
+
+For further details on required fields etc., please check the [Freshdesk
+documentation](https://developers.freshdesk.com/api/#create_contact)
+
+The contacts.Contact instance, returned by create_contact() includes the following attributes:
+- active
+- address
+- avatar
+- company_id
+- view_all_tickets,
+- custom_fields
+- deleted
+- description
+- email
+- id
+- job_title,
+- language
+- mobile
+- name
+- other_emails
+- phone
+- tags,
+- time_zone
+- twitter_id
+- unique_external_id
+- other_companies,
+- created_at
+- updated_at,
+- preferred_source
+- facebook_id
+- csat_rating
+
+
+## TODOs:
+- Validate post data against required fields
+- Implement avatar upload
+- Implement Rate limits
+
+
 ## For developers only
 
 If you want to patch something, play around, run the tests, just follow the instructions below.
